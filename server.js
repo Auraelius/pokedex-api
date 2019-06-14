@@ -9,8 +9,8 @@ const app = express()
 
 // start of pipeline: all requests go through these
 app.use(morgan('dev'))
-// app.use(cors())   // allow cross-origin
-// app.use(helmet()) // be careful with your response headers
+app.use(cors())   // allow cross-origin
+app.use(helmet()) // be careful with your response headers
 
 app.use(function validateBearerToken(req, res, next) {
   const apiToken = process.env.API_TOKEN
@@ -28,7 +28,8 @@ app.use(function validateBearerToken(req, res, next) {
 
  // pipeline: specific endpoints
 
-const validTypes = [`Bug`, `Dark`, `Dragon`, `Electric`, `Fairy`, `Fighting`, `Fire`, `Flying`, `Ghost`, `Grass`, `Ground`, `Ice`, `Normal`, `Poison`, `Psychic`, `Rock`, `Steel`, `Water`]
+
+ const validTypes = [`Bug`, `Dark`, `Dragon`, `Electric`, `Fairy`, `Fighting`, `Fire`, `Flying`, `Ghost`, `Grass`, `Ground`, `Ice`, `Normal`, `Poison`, `Psychic`, `Rock`, `Steel`, `Water`]
 app.get('/types', function handleGetTypes(req, res) {
   res.json(validTypes)
 });
