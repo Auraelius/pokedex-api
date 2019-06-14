@@ -9,8 +9,8 @@ const app = express()
 
 // start of pipeline: all requests go through these
 app.use(morgan('dev'))
-app.use(cors())
-app.use(helmet())
+// app.use(cors())   // allow cross-origin
+// app.use(helmet()) // be careful with your response headers
 
 app.use(function validateBearerToken(req, res, next) {
   const apiToken = process.env.API_TOKEN
@@ -24,7 +24,9 @@ app.use(function validateBearerToken(req, res, next) {
  })
 
 
-// pipeline: specific endpoints
+
+
+ // pipeline: specific endpoints
 
 const validTypes = [`Bug`, `Dark`, `Dragon`, `Electric`, `Fairy`, `Fighting`, `Fire`, `Flying`, `Ghost`, `Grass`, `Ground`, `Ice`, `Normal`, `Poison`, `Psychic`, `Rock`, `Steel`, `Water`]
 app.get('/types', function handleGetTypes(req, res) {
@@ -51,9 +53,6 @@ app.get('/pokemon', function handleGetPokemon(req, res) {
 
   res.json(response)
 })
-
-
-
 
 
 const PORT = 8000
